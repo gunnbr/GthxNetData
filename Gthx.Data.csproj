@@ -12,4 +12,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gthx.Core\Gthx.Core.csproj" />
+  </ItemGroup>
+
 </Project>
