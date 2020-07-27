@@ -20,9 +20,9 @@ namespace Gthx.Data
         public FactoidInfoReply GetFactoidInfo(string factoid);
         public bool AddTell(string fromUser, string toUser, string message);
         public List<Tell> GetTell(string forUser);
-        public ThingiverseRefs AddThingiverseReference(string item);
+        public ThingiverseRef AddThingiverseReference(string item);
         public void AddThingiverseTitle(string item, string title);
-        public YoutubeRefs AddYoutubeReference(string item);
+        public YoutubeRef AddYoutubeReference(string item);
         public void AddYoutubeTitle(string item, string title);
         public int GetMood();
     }

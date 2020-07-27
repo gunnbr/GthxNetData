@@ -17,13 +17,13 @@ namespace GthxData
         }
 
         public virtual DbSet<FactoidHistory> FactoidHistory { get; set; }
-        public virtual DbSet<Factoids> Factoids { get; set; }
-        public virtual DbSet<Refs> Refs { get; set; }
+        public virtual DbSet<Factoid> Factoids { get; set; }
+        public virtual DbSet<Ref> Refs { get; set; }
         public virtual DbSet<Seen> Seen { get; set; }
         public virtual DbSet<Tell> Tell { get; set; }
-        public virtual DbSet<ThingiverseRefs> ThingiverseRefs { get; set; }
+        public virtual DbSet<ThingiverseRef> ThingiverseRefs { get; set; }
         public virtual DbSet<Version> Version { get; set; }
-        public virtual DbSet<YoutubeRefs> YoutubeRefs { get; set; }
+        public virtual DbSet<YoutubeRef> YoutubeRefs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -65,7 +65,7 @@ namespace GthxData
                     ;//.HasCollation("utf8mb4_general_ci");
             });
 
-            modelBuilder.Entity<Factoids>(entity =>
+            modelBuilder.Entity<Factoid>(entity =>
             {
                 entity.ToTable("factoids");
 
@@ -85,10 +85,6 @@ namespace GthxData
                     //.HasCharSet("utf8mb4")
                     ;//.HasCollation("utf8mb4_general_ci");
 
-                entity.Property(e => e.Lastsync)
-                    .HasColumnName("lastsync")
-                    .HasColumnType("datetime");
-
                 entity.Property(e => e.Locked).HasColumnName("locked");
 
                 entity.Property(e => e.Nick)
@@ -104,7 +100,7 @@ namespace GthxData
                     ;//.HasCollation("utf8mb4_general_ci");
             });
 
-            modelBuilder.Entity<Refs>(entity =>
+            modelBuilder.Entity<Ref>(entity =>
             {
                 entity.HasKey(e => e.Item)
                     .HasName("PRIMARY");
@@ -190,7 +186,7 @@ namespace GthxData
                     .HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<ThingiverseRefs>(entity =>
+            modelBuilder.Entity<ThingiverseRef>(entity =>
             {
                 entity.HasKey(e => e.Item)
                     .HasName("PRIMARY");
@@ -216,7 +212,7 @@ namespace GthxData
                     ;//.HasCollation("utf8mb4_general_ci");
             });
 
-            modelBuilder.Entity<YoutubeRefs>(entity =>
+            modelBuilder.Entity<YoutubeRef>(entity =>
             {
                 entity.HasKey(e => e.Item)
                     .HasName("PRIMARY");
