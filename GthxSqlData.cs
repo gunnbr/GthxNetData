@@ -20,24 +20,26 @@ namespace Gthx.Data
             if (replaceExisting)
             {
                 // TODO: Is there a better way of doing this?
-                var existingFactoids = _Db.Factoids.Where(f => f.Item == item);
+                var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
 
                 foreach (var factoid in existingFactoids)
                 {
-                    _Db.Factoids.Remove(factoid);
+                    _Db.Factoid.Remove(factoid);
                 }
             }
 
             var newFactoid = new Factoid()
             {
-                Nick = user,
+                User = user,
                 Item = item,
-                Are = isAre,
+                IsAre = isAre,
                 Value = value,
-                Dateset = DateTime.UtcNow,
+                Timestamp = DateTime.UtcNow,
             };
 
-            _Db.Factoids.Add(newFactoid);
+            _Db.Factoid.Add(newFactoid);
+
+            _Db.SaveChanges();
 
             return true;
         }
@@ -67,19 +69,61 @@ namespace Gthx.Data
             throw new NotImplementedException();
         }
 
-        public bool ForgetFactoid(string user, string factoid)
+        public bool ForgetFactoid(string user, string item)
         {
-            throw new NotImplementedException();
+            // TODO: Add a trigger on deleting a row to add to the factoid history
+            //       OR add to the factoid history here
+
+            // TODO: Is there a better way of doing this?
+            var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
+
+            var isLocked = existingFactoids.Any(f => f.IsLocked);
+            if (isLocked)
+            {
+                return false;
+            }
+            
+            foreach (var factoid in existingFactoids)
+            {
+                _Db.Factoid.Remove(factoid);
+            }
+
+            var deleteHistory = new FactoidHistory()
+            {
+                Item = item,
+                Value = null,
+                User = user,
+                Timestamp = DateTime.UtcNow
+            };
+
+            _Db.FactoidHistory.Add(deleteHistory);
+
+            _Db.SaveChanges();
+
+            return true;
         }
 
-        public List<Factoid> GetFactoid(string factoid)
+        public List<Factoid> GetFactoid(string item)
         {
-            throw new NotImplementedException();
+            var factoids = _Db.Factoid.Where(f => f.Item == item).ToList();
+            return factoids;
         }
 
-        public FactoidInfoReply GetFactoidInfo(string factoid)
+        public FactoidInfoReply GetFactoidInfo(string item)
         {
-            throw new NotImplementedException();
+            var history = _Db.FactoidHistory.Where(f => f.Item == item).OrderByDescending(f => f.Timestamp).Take(3).ToList();
+            var refCount = 0;
+            var reference = _Db.Ref.Where(f => f.Item == item).FirstOrDefault();
+            if (reference != null)
+            {
+                refCount = reference.Count;
+            }
+
+            return new FactoidInfoReply()
+            {
+                RefCount = refCount,
+                InfoList = history
+            };
         }
 
         public List<Seen> GetLastSeen(string user)
@@ -94,17 +138,28 @@ namespace Gthx.Data
 
         public List<Tell> GetTell(string forUser)
         {
-            throw new NotImplementedException();
+            return _Db.Tell.Where(t => t.Recipient == forUser).OrderBy(t => t.Timestamp).ToList();
         }
 
-        public bool IsFactoidLocked(string factoid)
+        public bool IsFactoidLocked(string item)
         {
-            throw new NotImplementedException();
+            var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
+
+            return existingFactoids.Any(f => f.IsLocked);
         }
 
         public void UpdateLastSeen(string channel, string user, string message)
         {
-            throw new NotImplementedException();
+            var seenData = _Db.Seen.FirstOrDefault(s => s.User == user);
+            if (seenData == null)
+            {
+                seenData = new Seen() { User = user };
+                _Db.Seen.Add(seenData);
+            }
+            seenData.Message = message;
+            seenData.Channel = channel;
+            seenData.Timestamp = DateTime.UtcNow;
+            _Db.SaveChanges();
         }
     }
 }

@@ -5,15 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200728153758_initialize.cs" />
+    <Compile Remove="Migrations\20200728153758_initialize.Designer.cs" />
+    <Compile Remove="Migrations\20200728190350_another.cs" />
+    <Compile Remove="Migrations\20200728190350_another.Designer.cs" />
+    <Compile Remove="Migrations\20200728232005_init.cs" />
+    <Compile Remove="Migrations\20200728232005_init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Gthx.Core\Gthx.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
