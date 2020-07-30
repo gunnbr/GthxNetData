@@ -1,6 +1,7 @@
 ﻿using Gthx.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
 using System;
 
 namespace GthxData
@@ -37,7 +38,9 @@ namespace GthxData
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GthxTest;Integrated Security=True;");
+                optionsBuilder
+                    .UseLoggerFactory(ConsoleLoggerFactory)
+                    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GthxTest;Integrated Security=True;");
             }
         }
     }

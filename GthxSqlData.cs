@@ -174,7 +174,7 @@ namespace Gthx.Data
             if (!existingFactoids.Any())
             {
                 return true;
-            }    
+            }
 
             var isLocked = existingFactoids.Any(f => f.IsLocked);
             if (isLocked)
@@ -286,31 +286,32 @@ namespace Gthx.Data
         }
 
         public List<Tell> GetTell(string forUser)
-{
-var tells = _Db.Tell.Where(t => t.Recipient == forUser).OrderBy(t => t.Timestamp).ToList();
-_Db.Tell.RemoveRange(tells);
-return tells;
-}
+        {
+            var tells = _Db.Tell.Where(t => t.Recipient == forUser).OrderBy(t => t.Timestamp).ToList();
+            _Db.Tell.RemoveRange(tells);
+            _Db.SaveChanges();
+            return tells;
+        }
 
-public bool IsFactoidLocked(string item)
-{
-var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
+        public bool IsFactoidLocked(string item)
+        {
+            var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
 
-return existingFactoids.Any(f => f.IsLocked);
-}
+            return existingFactoids.Any(f => f.IsLocked);
+        }
 
-public void UpdateLastSeen(string channel, string user, string message)
-{
-var seenData = _Db.Seen.FirstOrDefault(s => s.User == user);
-if (seenData == null)
-{
-    seenData = new Seen() { User = user };
-    _Db.Seen.Add(seenData);
-}
-seenData.Message = message;
-seenData.Channel = channel;
-seenData.Timestamp = DateTime.UtcNow;
-_Db.SaveChanges();
-}
-}
+        public void UpdateLastSeen(string channel, string user, string message)
+        {
+            var seenData = _Db.Seen.FirstOrDefault(s => s.User == user);
+            if (seenData == null)
+            {
+                seenData = new Seen() { User = user };
+                _Db.Seen.Add(seenData);
+            }
+            seenData.Message = message;
+            seenData.Channel = channel;
+            seenData.Timestamp = DateTime.UtcNow;
+            _Db.SaveChanges();
+        }
+    }
 }
