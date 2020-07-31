@@ -1,5 +1,6 @@
 ﻿using Gthx.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using System;
@@ -8,8 +9,13 @@ namespace GthxData
 {
     public partial class GthxDataContext : DbContext
     {
-        public GthxDataContext()
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<GthxDataContext> _logger;
+
+        public GthxDataContext(IConfiguration configuration, ILogger<GthxDataContext> logger)
         {
+            _configuration = configuration;
+            _logger = logger;
         }
 
         public GthxDataContext(DbContextOptions<GthxDataContext> options)
@@ -36,11 +42,14 @@ namespace GthxData
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var connectionString = _configuration.GetConnectionString("GthxDb");
+            _logger.LogInformation("ConnectionString is: {connectionString}", connectionString);
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
                     .UseLoggerFactory(ConsoleLoggerFactory)
-                    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GthxTest;Integrated Security=True;");
+                    .UseSqlServer(connectionString);
             }
         }
     }
