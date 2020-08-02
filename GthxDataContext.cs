@@ -18,11 +18,13 @@ namespace GthxData
             _logger = logger;
         }
 
+#if false
         public GthxDataContext(DbContextOptions<GthxDataContext> options)
             : base(options)
         {
+        
         }
-
+#endif
         public virtual DbSet<FactoidHistory> FactoidHistory { get; set; }
         public virtual DbSet<Factoid> Factoid { get; set; }
         public virtual DbSet<Ref> Ref { get; set; }
