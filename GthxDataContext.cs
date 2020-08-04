@@ -16,6 +16,7 @@ namespace GthxData
         {
             _configuration = configuration;
             _logger = logger;
+            _logger.LogInformation("GthxDataContext constructor running with logging configured.");
         }
 
 #if false
@@ -49,9 +50,14 @@ namespace GthxData
 
             if (!optionsBuilder.IsConfigured)
             {
+                _logger.LogWarning("Context options are not configured. Using defaults.");
                 optionsBuilder
                     .UseLoggerFactory(ConsoleLoggerFactory)
                     .UseSqlServer(connectionString);
+            }
+            else
+            {
+                _logger.LogInformation("Context options are already configured.");
             }
         }
     }
