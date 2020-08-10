@@ -254,7 +254,7 @@ namespace Gthx.Data
         {
             var searchstring = user.Replace('*', '%');
             var seen = _Db.Set<Seen>().Where(s => EF.Functions.Like(s.User, $"%{searchstring}%")).Take(3).ToList();
-            if (seen.Count() == 0)
+            if (!seen.Any())
             {
                 return null;
             }
