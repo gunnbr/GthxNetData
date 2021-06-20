@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <BaseOutputPath>..\Gthx.Data\bin\</BaseOutputPath>
+    <BaseOutputPath>..\..\bin\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,5 +12,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Gthx.Data\Gthx.Data.csproj" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="echo Migrations output directory is $(ProjectDir)bin\$(Configuration)\&#xD;&#xA;echo PublishDir is $(PublishDir)&#xD;&#xA;echo WebDeployPath is $(WebDeployPath)&#xD;&#xA;echo PublishDir is $(PublishDir)&#xD;&#xA;echo TargetDir is $(TargetDir)&#xD;&#xA;echo TargetPath is $(TargetPath)" />
+  </Target>
 
 </Project>

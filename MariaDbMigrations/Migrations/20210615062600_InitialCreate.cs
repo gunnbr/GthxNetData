@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gthx.Data.Migrations
+namespace MariaDbMigrations.Migrations
 {
     public partial class InitialCreate : Migration
     {

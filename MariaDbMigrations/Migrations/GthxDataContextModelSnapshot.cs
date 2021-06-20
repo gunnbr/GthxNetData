@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Gthx.Data.Migrations
+namespace MariaDbMigrations.Migrations
 {
     [DbContext(typeof(GthxDataContext))]
     partial class GthxDataContextModelSnapshot : ModelSnapshot

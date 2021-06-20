@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Gthx.Data.Migrations
+namespace MariaDbMigrations.Migrations
 {
     [DbContext(typeof(GthxDataContext))]
     [Migration("20210615062600_InitialCreate")]

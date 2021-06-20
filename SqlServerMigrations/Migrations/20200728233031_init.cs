@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gthx.Data.Migrations
+namespace SqlServerMigrations.Migrations
 {
     public partial class init : Migration
     {

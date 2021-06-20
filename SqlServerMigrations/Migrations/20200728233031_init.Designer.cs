@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Gthx.Data.Migrations
+namespace SqlServerMigrations.Migrations
 {
     [DbContext(typeof(GthxDataContext))]
     [Migration("20200728233031_init")]
