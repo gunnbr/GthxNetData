@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gthx.Core\Gthx.Core.csproj" />
-    <ProjectReference Include="..\SqlServerMigrations\SqlServerMigrations.csproj" />
   </ItemGroup>
 
 </Project>

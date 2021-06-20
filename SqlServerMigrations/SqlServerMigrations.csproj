@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <BaseOutputPath>..\Gthx.Data\bin\</BaseOutputPath>
   </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Gthx.Data\Gthx.Data.csproj" />
+    </ItemGroup>
 
 </Project>
