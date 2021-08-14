@@ -253,7 +253,7 @@ namespace Gthx.Data
         public List<Seen> GetLastSeen(string user)
         {
             var searchstring = user.Replace('*', '%');
-            var seen = _Db.Set<Seen>().Where(s => EF.Functions.Like(s.User, $"%{searchstring}%")).Take(3).ToList();
+            var seen = _Db.Set<Seen>().Where(s => EF.Functions.Like(s.User, $"%{searchstring}%")).OrderByDescending(s => s.Timestamp).Take(3).ToList();
             if (!seen.Any())
             {
                 return null;
