@@ -84,6 +84,7 @@ namespace Gthx.Data
                     Count = 1,
                     Timestamp = DateTime.UtcNow
                 };
+                _Db.ThingiverseRef.Add(thingRef);
             }
             else
             {
@@ -114,6 +115,7 @@ namespace Gthx.Data
                     Timestamp = DateTime.UtcNow,
                     Title = title
                 };
+                _Db.ThingiverseRef.Add(thingRef);
             }
             else
             {
@@ -135,6 +137,7 @@ namespace Gthx.Data
                     Count = 1,
                     Timestamp = DateTime.UtcNow
                 };
+                _Db.YoutubeRef.Add(youRef);
             }
             else
             {
@@ -159,6 +162,7 @@ namespace Gthx.Data
                     Timestamp = DateTime.UtcNow,
                     Title = title
                 };
+                _Db.YoutubeRef.Add(youRef);
             }
             else
             {
