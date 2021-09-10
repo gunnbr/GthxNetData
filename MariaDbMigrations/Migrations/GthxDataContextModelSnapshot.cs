@@ -145,32 +145,14 @@ namespace MariaDbMigrations.Migrations
 
             modelBuilder.Entity("Gthx.Core.ThingiverseRef", b =>
                 {
-                    b.Property<int>("Item")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Item");
-
-                    b.ToTable("ThingiverseRef");
-                });
-
-            modelBuilder.Entity("Gthx.Core.YoutubeRef", b =>
-                {
-                    b.Property<string>("Item")
-                        .HasMaxLength(191)
-                        .HasColumnType("varchar(191)");
-
-                    b.Property<int>("Count")
+                    b.Property<int>("Item")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
@@ -180,7 +162,32 @@ namespace MariaDbMigrations.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
-                    b.HasKey("Item");
+                    b.HasKey("Id");
+
+                    b.ToTable("ThingiverseRef");
+                });
+
+            modelBuilder.Entity("Gthx.Core.YoutubeRef", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Item")
+                        .HasMaxLength(191)
+                        .HasColumnType("varchar(191)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("YoutubeRef");
                 });
