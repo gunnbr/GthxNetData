@@ -5,7 +5,7 @@ namespace Gthx.Core
 {
     public partial class YoutubeRef
     {
-        [Key]
+        public int Id { get; set; }
         [StringLength(191)]
         public string Item { get; set; }
         [StringLength(255)]
