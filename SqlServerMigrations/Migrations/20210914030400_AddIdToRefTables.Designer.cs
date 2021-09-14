@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SqlServerMigrations.Migrations
 {
     [DbContext(typeof(GthxDataContext))]
-    [Migration("20210910065517_AddIdToRefTables")]
+    [Migration("20210914030400_AddIdToRefTables")]
     partial class AddIdToRefTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

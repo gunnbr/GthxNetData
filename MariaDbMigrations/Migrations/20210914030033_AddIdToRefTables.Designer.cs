@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MariaDbMigrations.Migrations
 {
     [DbContext(typeof(GthxDataContext))]
-    [Migration("20210910065503_AddIdToRefTables")]
+    [Migration("20210914030033_AddIdToRefTables")]
     partial class AddIdToRefTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

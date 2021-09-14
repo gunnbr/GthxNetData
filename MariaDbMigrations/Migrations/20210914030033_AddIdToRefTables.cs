@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SqlServerMigrations.Migrations
+namespace MariaDbMigrations.Migrations
 {
     public partial class AddIdToRefTables : Migration
     {
@@ -17,12 +18,14 @@ namespace SqlServerMigrations.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Item",
                 table: "YoutubeRef",
-                type: "nvarchar(191)",
+                type: "varchar(191)",
                 maxLength: 191,
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(191)",
-                oldMaxLength: 191);
+                oldType: "varchar(191)",
+                oldMaxLength: 191)
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .OldAnnotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.AddColumn<int>(
                 name: "Id",
@@ -30,7 +33,7 @@ namespace SqlServerMigrations.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0)
-                .Annotation("SqlServer:Identity", "1, 1");
+                .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AlterColumn<int>(
                 name: "Item",
@@ -39,7 +42,7 @@ namespace SqlServerMigrations.Migrations
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
+                .OldAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddColumn<int>(
                 name: "Id",
@@ -47,7 +50,7 @@ namespace SqlServerMigrations.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0)
-                .Annotation("SqlServer:Identity", "1, 1");
+                .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_YoutubeRef",
@@ -81,14 +84,16 @@ namespace SqlServerMigrations.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Item",
                 table: "YoutubeRef",
-                type: "nvarchar(191)",
+                type: "varchar(191)",
                 maxLength: 191,
                 nullable: false,
                 defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(191)",
+                oldType: "varchar(191)",
                 oldMaxLength: 191,
-                oldNullable: true);
+                oldNullable: true)
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .OldAnnotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.AlterColumn<int>(
                 name: "Item",
@@ -97,7 +102,7 @@ namespace SqlServerMigrations.Migrations
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int")
-                .Annotation("SqlServer:Identity", "1, 1");
+                .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_YoutubeRef",
