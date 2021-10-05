@@ -27,6 +27,9 @@ namespace MariaDbMigrations.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .OldAnnotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.Sql("ALTER TABLE YoutubeRef ADD Id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
+
+            /*
             migrationBuilder.AddColumn<int>(
                 name: "Id",
                 table: "YoutubeRef",
@@ -34,6 +37,7 @@ namespace MariaDbMigrations.Migrations
                 nullable: false,
                 defaultValue: 0)
                 .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
+            */
 
             migrationBuilder.AlterColumn<int>(
                 name: "Item",
@@ -44,6 +48,9 @@ namespace MariaDbMigrations.Migrations
                 oldType: "int")
                 .OldAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
+            migrationBuilder.Sql("ALTER TABLE ThingiverseRef ADD Id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
+
+            /*
             migrationBuilder.AddColumn<int>(
                 name: "Id",
                 table: "ThingiverseRef",
@@ -61,6 +68,7 @@ namespace MariaDbMigrations.Migrations
                 name: "PK_ThingiverseRef",
                 table: "ThingiverseRef",
                 column: "Id");
+            */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
