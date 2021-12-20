@@ -78,12 +78,12 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'Thingiv
 DROP TABLE ThingiverseTemp;
 CREATE TABLE ThingiverseTemp(
     [Id] [int] IDENTITY(1,1) NOT NULL,
-    [Item] [nvarchar](191) NOT NULL,
+    [Item] [int] NOT NULL,
     [Title] [nvarchar](255),
     [Count] [int],
     [Timestamp] [datetime2],
 );
-INSERT INTO ThingiverseTemp SELECT * FROM ThingiverseRef;
+INSERT INTO ThingiverseTemp(Item, Title, Count, Timestamp) SELECT Item, Title, Count, Timestamp FROM ThingiverseRef;
 DROP TABLE ThingiverseRef;
 EXEC sp_rename 'ThingiverseTemp', 'ThingiverseRef';
             ");
