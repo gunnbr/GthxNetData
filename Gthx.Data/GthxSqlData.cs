@@ -174,7 +174,7 @@ namespace Gthx.Data
 
         public bool ForgetFactoid(string user, string item)
         {
-            var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
+            var existingFactoids = System.Linq.Queryable.Where(_Db.Factoid, f => f.Item == item);
             if (!existingFactoids.Any())
             {
                 return true;
@@ -205,7 +205,7 @@ namespace Gthx.Data
 
         public List<Factoid> GetFactoid(string item)
         {
-            var factoids = _Db.Factoid.Where(f => f.Item == item).ToList();
+            var factoids = System.Linq.Queryable.Where(_Db.Factoid, f => f.Item == item).ToList();
             if (factoids.Count == 0)
             {
                 return null;
@@ -234,14 +234,14 @@ namespace Gthx.Data
         {
             // TODO: Find a way to combine these into a single query,
             //       as is done in the original gthx.
-            var history = _Db.FactoidHistory.Where(f => f.Item == item).OrderByDescending(f => f.Timestamp).Take(4).ToList();
+            var history = System.Linq.Queryable.Where(_Db.FactoidHistory, f => f.Item == item).OrderByDescending(f => f.Timestamp).Take(4).ToList();
             if (history.Count == 0)
             {
                 return null;
             }
 
             var refCount = 0;
-            var reference = _Db.Ref.Where(f => f.Item == item).FirstOrDefault();
+            var reference = System.Linq.Queryable.Where(_Db.Ref, f => f.Item == item).FirstOrDefault();
             if (reference != null)
             {
                 refCount = reference.Count;
@@ -257,7 +257,7 @@ namespace Gthx.Data
         public List<Seen> GetLastSeen(string user)
         {
             var searchstring = user.Replace('*', '%');
-            var seen = _Db.Set<Seen>().Where(s => EF.Functions.Like(s.User, $"%{searchstring}%")).OrderByDescending(s => s.Timestamp).Take(3).ToList();
+            var seen = System.Linq.Queryable.Where(_Db.Set<Seen>(), s => EF.Functions.Like(s.User, $"%{searchstring}%")).OrderByDescending(s => s.Timestamp).Take(3).ToList();
             if (!seen.Any())
             {
                 return null;
@@ -292,7 +292,7 @@ namespace Gthx.Data
 
         public List<Tell> GetTell(string forUser)
         {
-            var tells = _Db.Tell.Where(t => t.Recipient == forUser).OrderBy(t => t.Timestamp).ToList();
+            var tells = System.Linq.Queryable.Where(_Db.Tell, t => t.Recipient == forUser).OrderBy(t => t.Timestamp).ToList();
             _Db.Tell.RemoveRange(tells);
             _Db.SaveChanges();
             return tells;
@@ -300,7 +300,7 @@ namespace Gthx.Data
 
         public bool IsFactoidLocked(string item)
         {
-            var existingFactoids = _Db.Factoid.Where(f => f.Item == item);
+            var existingFactoids = System.Linq.Queryable.Where(_Db.Factoid, f => f.Item == item);
 
             return existingFactoids.Any(f => f.IsLocked);
         }
