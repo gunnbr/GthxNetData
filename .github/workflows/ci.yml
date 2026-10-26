@@ -1,0 +1,25 @@
+# Builds the solution on every pull request, so Dependabot's update PRs show whether they still build.
+# The tests for this code live in GthxNetBot (Gthx.Test), which runs them against SQL Server.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build Gthx.Data.sln --configuration Release
