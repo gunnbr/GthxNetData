@@ -17,5 +17,7 @@ namespace GthxData
         public virtual DbSet<Tell> Tell { get; set; }
         public virtual DbSet<ThingiverseRef> ThingiverseRef { get; set; }
         public virtual DbSet<YoutubeRef> YoutubeRef { get; set; }
+        public virtual DbSet<PrintablesRef> PrintablesRef { get; set; }
+        public virtual DbSet<MakerWorldRef> MakerWorldRef { get; set; }
     }
 }

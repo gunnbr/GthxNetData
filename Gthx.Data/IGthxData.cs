@@ -24,6 +24,10 @@ namespace Gthx.Data
         public void AddThingiverseTitle(string item, string title);
         public YoutubeRef AddYoutubeReference(string item);
         public void AddYoutubeTitle(string item, string title);
+        public PrintablesRef AddPrintablesReference(int item);
+        public void AddPrintablesTitle(int item, string title);
+        public MakerWorldRef AddMakerWorldReference(int item);
+        public void AddMakerWorldTitle(int item, string title);
         public int GetMood();
     }
 }

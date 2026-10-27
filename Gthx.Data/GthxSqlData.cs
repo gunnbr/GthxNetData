@@ -171,6 +171,96 @@ namespace Gthx.Data
             _Db.SaveChanges();
         }
 
+        public PrintablesRef AddPrintablesReference(int item)
+        {
+            var printablesRef = _Db.PrintablesRef.FirstOrDefault(p => p.Item == item);
+            if (printablesRef == null)
+            {
+                printablesRef = new PrintablesRef()
+                {
+                    Item = item,
+                    Count = 1,
+                    Timestamp = DateTime.UtcNow
+                };
+                _Db.PrintablesRef.Add(printablesRef);
+            }
+            else
+            {
+                printablesRef.Count++;
+            }
+
+            _Db.SaveChanges();
+
+            return printablesRef;
+        }
+
+        public void AddPrintablesTitle(int item, string title)
+        {
+            var printablesRef = _Db.PrintablesRef.FirstOrDefault(p => p.Item == item);
+            if (printablesRef == null)
+            {
+                printablesRef = new PrintablesRef()
+                {
+                    Item = item,
+                    Count = 1,
+                    Timestamp = DateTime.UtcNow,
+                    Title = title
+                };
+                _Db.PrintablesRef.Add(printablesRef);
+            }
+            else
+            {
+                printablesRef.Title = title;
+            }
+
+            _Db.SaveChanges();
+        }
+
+        public MakerWorldRef AddMakerWorldReference(int item)
+        {
+            var makerWorldRef = _Db.MakerWorldRef.FirstOrDefault(m => m.Item == item);
+            if (makerWorldRef == null)
+            {
+                makerWorldRef = new MakerWorldRef()
+                {
+                    Item = item,
+                    Count = 1,
+                    Timestamp = DateTime.UtcNow
+                };
+                _Db.MakerWorldRef.Add(makerWorldRef);
+            }
+            else
+            {
+                makerWorldRef.Count++;
+            }
+
+            _Db.SaveChanges();
+
+            return makerWorldRef;
+        }
+
+        public void AddMakerWorldTitle(int item, string title)
+        {
+            var makerWorldRef = _Db.MakerWorldRef.FirstOrDefault(m => m.Item == item);
+            if (makerWorldRef == null)
+            {
+                makerWorldRef = new MakerWorldRef()
+                {
+                    Item = item,
+                    Count = 1,
+                    Timestamp = DateTime.UtcNow,
+                    Title = title
+                };
+                _Db.MakerWorldRef.Add(makerWorldRef);
+            }
+            else
+            {
+                makerWorldRef.Title = title;
+            }
+
+            _Db.SaveChanges();
+        }
+
         public bool ForgetFactoid(string user, string item)
         {
             var existingFactoids = System.Linq.Queryable.Where(_Db.Factoid, f => f.Item == item);
