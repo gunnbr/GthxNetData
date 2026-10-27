@@ -261,6 +261,89 @@ namespace Gthx.Data
             _Db.SaveChanges();
         }
 
+        public Reminder AddReminder(string author, string channel, string message, DateTime due)
+        {
+            var reminder = new Reminder()
+            {
+                Author = author,
+                Channel = channel,
+                Message = message,
+                Timestamp = DateTime.UtcNow,
+                DueTimestamp = due
+            };
+
+            _Db.Reminder.Add(reminder);
+            _Db.SaveChanges();
+            return reminder;
+        }
+
+        public List<Reminder> GetReminders(string author)
+        {
+            return System.Linq.Queryable.Where(_Db.Reminder, r => r.Author == author).OrderBy(r => r.DueTimestamp).ToList();
+        }
+
+        public bool CancelReminder(string author, int id)
+        {
+            var reminder = _Db.Reminder.FirstOrDefault(r => r.Id == id && r.Author == author);
+            if (reminder == null)
+            {
+                return false;
+            }
+
+            _Db.Reminder.Remove(reminder);
+            return SaveRemoval();
+        }
+
+        public List<Reminder> GetDueReminders(DateTime now)
+        {
+            return System.Linq.Queryable.Where(_Db.Reminder, r => r.DueTimestamp <= now).OrderBy(r => r.DueTimestamp).ToList();
+        }
+
+        public List<Reminder> TakeDueReminders(string author, DateTime now)
+        {
+            var reminders = System.Linq.Queryable.Where(_Db.Reminder, r => r.Author == author && r.DueTimestamp <= now).OrderBy(r => r.DueTimestamp).ToList();
+            if (reminders.Count == 0)
+            {
+                return reminders;
+            }
+
+            // Delete them one at a time so a reminder that was already delivered elsewhere
+            // (by the timer, in another scope) is left out rather than delivered twice.
+            return reminders.Where(r => DeleteReminder(r.Id)).ToList();
+        }
+
+        public bool DeleteReminder(int id)
+        {
+            var reminder = _Db.Reminder.FirstOrDefault(r => r.Id == id);
+            if (reminder == null)
+            {
+                return false;
+            }
+
+            _Db.Reminder.Remove(reminder);
+            return SaveRemoval();
+        }
+
+        /// <summary>
+        /// Saves a pending removal, returning false if the row was already deleted by someone else
+        /// </summary>
+        private bool SaveRemoval()
+        {
+            try
+            {
+                return _Db.SaveChanges() > 0;
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                foreach (var entry in ex.Entries)
+                {
+                    entry.State = EntityState.Detached;
+                }
+
+                return false;
+            }
+        }
+
         public bool ForgetFactoid(string user, string item)
         {
             var existingFactoids = System.Linq.Queryable.Where(_Db.Factoid, f => f.Item == item);

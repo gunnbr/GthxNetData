@@ -153,6 +153,37 @@ namespace SqlServerMigrations.Migrations
                     b.ToTable("Ref");
                 });
 
+            modelBuilder.Entity("Gthx.Core.Reminder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Channel")
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<DateTime>("DueTimestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reminder");
+                });
+
             modelBuilder.Entity("Gthx.Core.Seen", b =>
                 {
                     b.Property<int>("Id")
