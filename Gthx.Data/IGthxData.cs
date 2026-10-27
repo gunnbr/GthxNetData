@@ -1,4 +1,5 @@
 ﻿using Gthx.Core;
+using System;
 using System.Collections.Generic;
 
 namespace Gthx.Data
@@ -28,6 +29,12 @@ namespace Gthx.Data
         public void AddPrintablesTitle(int item, string title);
         public MakerWorldRef AddMakerWorldReference(int item);
         public void AddMakerWorldTitle(int item, string title);
+        public Reminder AddReminder(string author, string channel, string message, DateTime due);
+        public List<Reminder> GetReminders(string author);
+        public bool CancelReminder(string author, int id);
+        public List<Reminder> GetDueReminders(DateTime now);
+        public List<Reminder> TakeDueReminders(string author, DateTime now);
+        public bool DeleteReminder(int id);
         public int GetMood();
     }
 }
