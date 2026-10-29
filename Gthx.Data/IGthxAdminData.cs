@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 namespace Gthx.Data
 {
     /// <summary>
-    /// Changes to factoids made from the website's admin panel. Kept apart from <see cref="IGthxWebData"/> so the
+    /// Changes made from the website's admin panel: to factoids, and to the keywords the bot emails the admin about. Kept apart from <see cref="IGthxWebData"/> so the
     /// website's public pages can use a database login that only has read access, and only the admin pages use
     /// one that can write.
     /// </summary>
     /// <remarks>
-    /// The database login needs SELECT, UPDATE and DELETE on Factoid, and SELECT and INSERT on FactoidHistory (EF
-    /// reads back the new row's id), nothing more.
+    /// The database login needs SELECT, UPDATE and DELETE on Factoid, SELECT and INSERT on FactoidHistory (EF
+    /// reads back the new row's id), and SELECT, INSERT and DELETE on EmailKeyword, nothing more.
     /// Unlike the bot's <see cref="IGthxData"/>, these ignore IsLocked: changing locked factoids is what an admin
     /// is for.
     /// </remarks>
@@ -42,5 +42,21 @@ namespace Gthx.Data
         /// The bot won't change or forget a locked item. Returns the number of values changed.
         /// </summary>
         public Task<int> SetItemLockedAsync(string item, bool isLocked, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// The keywords the bot emails the admin about, in alphabetical order.
+        /// </summary>
+        public Task<List<EmailKeyword>> GetEmailKeywordsAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Adds a keyword, as added by <paramref name="user"/>. Returns the new keyword, or null if it's already
+        /// there (ignoring case).
+        /// </summary>
+        public Task<EmailKeyword> AddEmailKeywordAsync(string keyword, string user, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Deletes the keyword with this id. Returns false if there isn't one.
+        /// </summary>
+        public Task<bool> DeleteEmailKeywordAsync(int id, CancellationToken cancellationToken = default);
     }
 }

@@ -114,5 +114,44 @@ namespace Gthx.Data
                 .Where(f => f.Item == item && f.IsLocked != isLocked)
                 .ExecuteUpdateAsync(s => s.SetProperty(f => f.IsLocked, isLocked), cancellationToken);
         }
+
+        public Task<List<EmailKeyword>> GetEmailKeywordsAsync(CancellationToken cancellationToken = default)
+        {
+            return _Db.EmailKeyword
+                .AsNoTracking()
+                .OrderBy(k => k.Keyword)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<EmailKeyword> AddEmailKeywordAsync(string keyword, string user, CancellationToken cancellationToken = default)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(keyword);
+            keyword = keyword.Trim();
+
+            // SQL Server compares case-insensitively, so this also finds "RepRap" when adding "reprap". The unique
+            // index catches two admins adding the same keyword at once.
+            if (await _Db.EmailKeyword.AnyAsync(k => k.Keyword == keyword, cancellationToken))
+            {
+                return null;
+            }
+
+            var emailKeyword = new EmailKeyword()
+            {
+                Keyword = keyword,
+                User = user,
+                Timestamp = DateTime.UtcNow
+            };
+            _Db.EmailKeyword.Add(emailKeyword);
+            await _Db.SaveChangesAsync(cancellationToken);
+
+            return emailKeyword;
+        }
+
+        public async Task<bool> DeleteEmailKeywordAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _Db.EmailKeyword
+                .Where(k => k.Id == id)
+                .ExecuteDeleteAsync(cancellationToken) > 0;
+        }
     }
 }

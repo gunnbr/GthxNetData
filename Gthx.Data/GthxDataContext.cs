@@ -20,5 +20,13 @@ namespace GthxData
         public virtual DbSet<PrintablesRef> PrintablesRef { get; set; }
         public virtual DbSet<MakerWorldRef> MakerWorldRef { get; set; }
         public virtual DbSet<Reminder> Reminder { get; set; }
+        public virtual DbSet<EmailKeyword> EmailKeyword { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EmailKeyword>()
+                .HasIndex(k => k.Keyword)
+                .IsUnique();
+        }
     }
 }
