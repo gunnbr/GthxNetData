@@ -324,6 +324,11 @@ namespace Gthx.Data
             return SaveRemoval();
         }
 
+        public List<string> GetEmailKeywords()
+        {
+            return _Db.EmailKeyword.AsNoTracking().Select(k => k.Keyword).ToList();
+        }
+
         /// <summary>
         /// Saves a pending removal, returning false if the row was already deleted by someone else
         /// </summary>
