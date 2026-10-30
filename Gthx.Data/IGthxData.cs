@@ -35,6 +35,10 @@ namespace Gthx.Data
         public List<Reminder> GetDueReminders(DateTime now);
         public List<Reminder> TakeDueReminders(string author, DateTime now);
         public bool DeleteReminder(int id);
+        /// <summary>
+        /// The keywords to email the admin about, set from the website's admin panel
+        /// </summary>
+        public List<string> GetEmailKeywords();
         public int GetMood();
     }
 }
