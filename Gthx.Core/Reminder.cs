@@ -23,5 +23,9 @@ namespace Gthx.Core
         /// UTC time the reminder is due
         /// </summary>
         public DateTime DueTimestamp { get; set; }
+        /// <summary>
+        /// True to deliver it by private message as soon as it's due, rather than in the channel once the author is around
+        /// </summary>
+        public bool Private { get; set; }
     }
 }
