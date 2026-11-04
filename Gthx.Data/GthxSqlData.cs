@@ -261,7 +261,7 @@ namespace Gthx.Data
             _Db.SaveChanges();
         }
 
-        public Reminder AddReminder(string author, string channel, string message, DateTime due)
+        public Reminder AddReminder(string author, string channel, string message, DateTime due, bool isPrivate = false)
         {
             var reminder = new Reminder()
             {
@@ -269,7 +269,8 @@ namespace Gthx.Data
                 Channel = channel,
                 Message = message,
                 Timestamp = DateTime.UtcNow,
-                DueTimestamp = due
+                DueTimestamp = due,
+                Private = isPrivate
             };
 
             _Db.Reminder.Add(reminder);

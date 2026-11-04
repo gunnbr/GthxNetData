@@ -29,7 +29,7 @@ namespace Gthx.Data
         public void AddPrintablesTitle(int item, string title);
         public MakerWorldRef AddMakerWorldReference(int item);
         public void AddMakerWorldTitle(int item, string title);
-        public Reminder AddReminder(string author, string channel, string message, DateTime due);
+        public Reminder AddReminder(string author, string channel, string message, DateTime due, bool isPrivate = false);
         public List<Reminder> GetReminders(string author);
         public bool CancelReminder(string author, int id);
         public List<Reminder> GetDueReminders(DateTime now);
